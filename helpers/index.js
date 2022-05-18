@@ -17,3 +17,5 @@ module.exports = {
   readTasks,
   writeTasks,
 };
+
+// Source: Monitoria do Gabriel e Lilian 
