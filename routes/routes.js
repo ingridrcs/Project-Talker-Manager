@@ -23,4 +23,4 @@ routes.get('/talker/:id', async (req, res) => {
 });
 module.exports = routes;
 
-//Source: parseInt https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/parseInt
+// Source: parseInt https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/parseInt
