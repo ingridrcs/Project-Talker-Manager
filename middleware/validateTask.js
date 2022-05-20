@@ -7,8 +7,8 @@ const validation = (req, res, next) => {
  if (email !== validEmail) {
    return res.status(200).json({ message: 'Email inválido' });
  }
- if (!password || password < 6) {
-   return res.status(200).json({ message: 'Senha tem que ter 6 dígitos' });
+ if (!password || password.length < 6) {
+   return res.status(200).json({ message: 'Senha tem que ter no mínimo 6 dígitos' });
  }
  next();
 }; 
