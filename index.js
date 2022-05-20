@@ -5,7 +5,6 @@ const app = express();
 app.use(bodyParser.json());
 // escrevi linha 7//
 app.use('/', require('./routes/routes'));
-app.use('/login', require('./routes/routes'));
 
 const HTTP_OK_STATUS = 200;
 const PORT = '3000';
