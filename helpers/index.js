@@ -1,21 +1,21 @@
 const fs = require('fs/promises');
 
-const readTasks = async () => {
-  const stringTasks = await fs.readFile('./talker.json', 'utf8');
-  const tasks = JSON.parse(stringTasks);
+const readTalker = async () => {
+  const readingTalker = await fs.readFile('./talker.json', 'utf8');
+  const tasks = JSON.parse(readingTalker);
 
   return tasks;
 };
 
-const writeTasks = async (tasks) => {
-  const stringTasks = JSON.stringify(tasks);
+const writeTalker = async (tasks) => {
+  const writingTalker = JSON.stringify(tasks);
 
-  await fs.writeFile('./talker.json', stringTasks, 'utf8');
+  await fs.writeFile('./talker.json', writingTalker, 'utf8');
 };
 
 module.exports = {
-  readTasks,
-  writeTasks,
+  readTalker,
+  writeTalker,
 };
 
 // Source: Monitoria do Gabriel e Lilian 
