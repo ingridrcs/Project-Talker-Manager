@@ -2,13 +2,13 @@ const validation = (req, res, next) => {
  const { email, password } = req.body;
  const validEmail = '^[A-Za-z0-9+_.-]+@(.+)$';
  if (!email) {
-   return res.status(400).json({ message: 'Email inválido' });
+   return res.status(200).json({ message: 'Email inválido' });
  }
  if (email !== validEmail) {
-   return res.status(400).json({ message: 'Email inválido' });
+   return res.status(200).json({ message: 'Email inválido' });
  }
  if (!password || password < 6) {
-   return res.status(400).json({ message: 'Senha tem que ter 6 dígitos' });
+   return res.status(200).json({ message: 'Senha tem que ter 6 dígitos' });
  }
  next();
 }; 
