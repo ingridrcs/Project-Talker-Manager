@@ -6,7 +6,7 @@ const validationLogin = (req, res, next) => {
  if (!email) {
    return res.status(400).json({ message: 'O campo "email" é obrigatório' });
  }
- if (email !== validateEmail) {
+ if (!validateEmail) {
    return res.status(400).json({ message: 'O "email" deve ter o formato "email@email.com"' });
  }
  if (!password) {
