@@ -4,7 +4,7 @@ const routes = express.Router();
 
 const { readTalker } = require('../helpers/index');
 
-// const validationLogin = require('../middleware/validateTask');
+const validationLogin = require('../middleware/validateTask');
 const getToken = require('../getToken/getToken');
 
 routes.get('/talker', async (req, res) => {
@@ -25,7 +25,7 @@ routes.get('/talker/:id', async (req, res) => {
   return res.status(200).json(findId);
 });
 
-routes.post('/login', (_req, res) => {
+routes.post('/login', validationLogin, (_req, res) => {
   const token = getToken();
   return res.status(200).json({ token });
 });
