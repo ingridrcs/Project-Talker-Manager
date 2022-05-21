@@ -4,8 +4,8 @@ const routes = express.Router();
 
 const { readTalker } = require('../helpers/index');
 
-const { validationLogin } = require('../middleware/validateTask');
-const { getToken } = require('../getToken/getToken');
+const validationLogin = require('../middleware/validateTask');
+const getToken = require('../getToken/getToken');
 
 routes.get('/talker', async (req, res) => {
   const readFile = await readTalker();
