@@ -1,6 +1,6 @@
 const validationLogin = (req, res, next) => {
  const { email, password } = req.body;
- const bodyEmail = '^[A-Za-z0-9+_.-]+@(.+)$';
+ const bodyEmail = /\S+@\S+\.\S+/;
  const validateEmail = bodyEmail.test(email);
 
  if (!email) {
