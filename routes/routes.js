@@ -41,8 +41,8 @@ validateTalkItens, validateTalk, validationToken, async (req, res) => {
     name,
     age,
     talk: {
-      rate,
       watchedAt,
+      rate,
     },
   };
   readFile.push(newUser);
@@ -52,3 +52,4 @@ validateTalkItens, validateTalk, validationToken, async (req, res) => {
 module.exports = routes;
 
 // Source: parseInt https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/parseInt
+// Source: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Math/max
