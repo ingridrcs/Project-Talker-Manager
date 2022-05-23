@@ -34,7 +34,7 @@ routes.post('/login', validationLogin, (_req, res) => {
 
 routes.post('/talker', validateName, validateAge,
 validateTalkItens, validateTalk, validationToken, async (req, res) => {
-  const { name, age, talk: { rate, watchedAt } } = req.body;
+  const { name, age, talk: { watchedAt, rate } } = req.body;
   const readFile = await readTalker();
   const newUser = {
     id: Math.max(...readFile.map((talk) => talk.id)) + 1,
