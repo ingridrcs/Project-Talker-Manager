@@ -30,7 +30,8 @@ const validateTalkItens = (req, res, next) => {
     return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
   }
   if (!rate) {
-    return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
+    return res.status(400).json({
+      message: 'O campo "talk" é obrigatório e "watchedAt" e "rate" não podem ser vazios' });
   }
   next();
 };
@@ -50,7 +51,7 @@ const validateTalk = (req, res, next) => {
 
 const validationToken = (req, res, next) => {
   const { authorization } = req.headers;
-  if (!authorization) {
+  if (!authorization || authorization === '') {
     return res.status(401).json({ message: 'Token não encontrado' });
   }
     if (authorization.length !== 16) {
