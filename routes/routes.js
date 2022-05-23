@@ -2,10 +2,12 @@ const express = require('express');
 
 const routes = express.Router();
 
-const { readTalker } = require('../helpers/index');
+const { readTalker, writeTalker } = require('../helpers/index');
 
 const validationLogin = require('../middleware/validateTask');
 const getToken = require('../getToken/getToken');
+const { validateName, validateAge, validateTalkItens,
+  validateTalk, validationToken } = require('../middleware/validateUser');
 
 routes.get('/talker', async (req, res) => {
   const readFile = await readTalker();
@@ -28,6 +30,24 @@ routes.get('/talker/:id', async (req, res) => {
 routes.post('/login', validationLogin, (_req, res) => {
   const token = getToken();
   return res.status(200).json({ token });
+});
+
+routes.post('/talker', validateName, validateAge,
+validateTalkItens, validateTalk, validationToken, async (req, res) => {
+  const { name, age, talk: { rate, watchedAt } } = req.body;
+  const readFile = await readTalker();
+  const newUser = {
+    id: Math.max(...readFile.map((talk) => talk.id)) + 1,
+    name,
+    age,
+    talk: {
+      rate,
+      watchedAt,
+    },
+  };
+  readFile.push(newUser);
+  await writeTalker(readFile);
+  return res.status(201).json({ newUser });
 });
 module.exports = routes;
 
