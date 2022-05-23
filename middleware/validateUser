@@ -20,18 +20,21 @@ const validateAge = (req, res, next) => {
   next();
 };
 
-const validateTalkItens = (req, res, next) => {
-  const { talk: { watchedAt, rate } } = req.body;
+const validateWatchedAt = (req, res, next) => {
+  const { talk: { watchedAt } } = req.body;
   const dateRegex = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i;
-  if (!dateRegex.test(watchedAt)) {
-    return res.status(400).json({ message: 'O campo "watchedAt" deve ter o formato "dd/mm/aaaa"' });
+  const validateRegex = dateRegex.test(watchedAt);
+  if (!validateRegex) {
+    return res.status(400).json({ 
+      message: 'O campo "watchedAt" deve ter o formato "dd/mm/aaaa"' });
   }
+  next();
+};
+
+const validateRate = (req, res, next) => {
+  const { talk: { rate } } = req.body;
   if (rate < 1 || rate > 5) {
     return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
-  }
-  if (!rate) {
-    return res.status(400).json({
-      message: 'O campo "talk" é obrigatório e "watchedAt" e "rate" não podem ser vazios' });
   }
   next();
 };
@@ -42,7 +45,7 @@ const validateTalk = (req, res, next) => {
     return res.status(400).json({ 
       message: 'O campo "talk" é obrigatório e "watchedAt" e "rate" não podem ser vazios' });
   }
-    if (!talk.watchedAt || typeof talk.rate !== 'number') {
+    if (talk.rate === undefined || talk.watchedAt === undefined) {
     return res.status(400).json({ 
       message: 'O campo "talk" é obrigatório e "watchedAt" e "rate" não podem ser vazios' });
   }
@@ -51,7 +54,7 @@ const validateTalk = (req, res, next) => {
 
 const validationToken = (req, res, next) => {
   const { authorization } = req.headers;
-  if (!authorization || authorization === '') {
+  if (!authorization) {
     return res.status(401).json({ message: 'Token não encontrado' });
   }
     if (authorization.length !== 16) {
@@ -59,6 +62,11 @@ const validationToken = (req, res, next) => {
   }
   next();
 };
-module.exports = { validateName, validateAge, validateTalkItens, validateTalk, validationToken };
+module.exports = { validateName, 
+  validateAge,
+  validateWatchedAt, 
+  validateRate,
+  validateTalk, 
+  validationToken };
 
 // Source: dateRegex: exercícios do course

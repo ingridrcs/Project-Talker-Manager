@@ -6,7 +6,7 @@ const { readTalker, writeTalker } = require('../helpers/index');
 
 const validationLogin = require('../middleware/validateTask');
 const getToken = require('../getToken/getToken');
-const { validateName, validateAge, validateTalkItens,
+const { validateName, validateAge, validateWatchedAt, validateRate,
   validateTalk, validationToken } = require('../middleware/validateUser');
 
 routes.get('/talker', async (req, res) => {
@@ -32,8 +32,8 @@ routes.post('/login', validationLogin, (_req, res) => {
   return res.status(200).json({ token });
 });
 
-routes.post('/talker', validateName, validateAge,
-validateTalkItens, validateTalk, validationToken, async (req, res) => {
+routes.post('/talker', validationToken, validateAge, validateName, validateTalk,
+validateWatchedAt, validateRate, async (req, res) => {
   const { name, age, talk: { watchedAt, rate } } = req.body;
   const readFile = await readTalker();
   const newUser = {
@@ -47,7 +47,7 @@ validateTalkItens, validateTalk, validationToken, async (req, res) => {
   };
   readFile.push(newUser);
   await writeTalker(readFile);
-  return res.status(201).json({ newUser });
+  return res.status(201).json(newUser);
 });
 module.exports = routes;
 
