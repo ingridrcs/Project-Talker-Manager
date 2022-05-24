@@ -49,7 +49,23 @@ validateWatchedAt, validateRate, async (req, res) => {
   await writeTalker(readFile);
   return res.status(201).json(newUser);
 });
+
+routes.put('/talker/:id', validationToken, validateAge, validateName, validateTalk,
+validateWatchedAt, validateRate, async (req, res) => {
+const { id } = req.params;
+const { name, age, talk: { watchedAt, rate } } = req.body;
+const readFile = await readTalker();
+const userIndex = readFile.findIndex((user) => user.id === parseInt(id, 10));
+if (userIndex === -1) {
+  return res.status(404).json({ message: 'User not found' });
+}
+readFile[userIndex] = {
+  ...readFile[userIndex], name, age, talk: { watchedAt, rate } };
+await writeTalker(readFile);
+return res.status(200).json(readFile[userIndex]);
+});
 module.exports = routes;
 
 // Source: parseInt https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/parseInt
 // Source: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Math/max
+// Source: Aula ao Vivo módulo 22.4
