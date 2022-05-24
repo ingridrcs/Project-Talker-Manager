@@ -64,6 +64,19 @@ readFile[userIndex] = {
 await writeTalker(readFile);
 return res.status(200).json(readFile[userIndex]);
 });
+
+routes.delete('/talker/:id', validationToken, async (req, res) => {
+const { id } = req.params;
+const readFile = await readTalker();
+const userIndex = readFile.findIndex((user) => user.id === parseInt(id, 10));
+if (userIndex === -1) {
+  return res.status(404).json({ message: 'User not found' });
+}
+readFile.splice(userIndex, 1);
+await writeTalker(readFile);
+
+return res.status(204).json(userIndex);
+});
 module.exports = routes;
 
 // Source: parseInt https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/parseInt
