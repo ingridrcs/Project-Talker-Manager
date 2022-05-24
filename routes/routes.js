@@ -74,7 +74,6 @@ if (userIndex === -1) {
 }
 readFile.splice(userIndex, 1);
 await writeTalker(readFile);
-
 return res.status(204).json(userIndex);
 });
 module.exports = routes;
