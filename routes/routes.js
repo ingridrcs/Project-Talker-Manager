@@ -80,4 +80,4 @@ module.exports = routes;
 
 // Source: parseInt https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/parseInt
 // Source: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Math/max
-// Source: Aula ao Vivo módulo 22.4
+// Source: Aula ao Vivo módulo 22.4 e monitoria do Gabriel
