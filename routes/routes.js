@@ -17,6 +17,17 @@ routes.get('/talker', async (req, res) => {
   return res.status(200).json(readFile);
 });
 
+routes.get('/talker/search', validationToken, async (req, res) => {
+  const { q } = req.query;
+  const readFile = await readTalker();
+  const findUser = readFile.filter((user) => 
+  user.name.toLowerCase().includes(q.toLocaleLowerCase()));
+    if (!q) {
+    return res.status(400).json({ message: 'Not Found' });
+  }
+  return res.status(200).json(findUser);
+});
+
 routes.get('/talker/:id', async (req, res) => {
   const readFile = await readTalker();
   const { id } = req.params;
@@ -76,6 +87,7 @@ readFile.splice(userIndex, 1);
 await writeTalker(readFile);
 return res.status(204).json(userIndex);
 });
+
 module.exports = routes;
 
 // Source: parseInt https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/parseInt
